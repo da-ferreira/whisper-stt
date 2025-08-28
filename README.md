@@ -1,4 +1,12 @@
 # Instalação
+
+Venv (opcional)
+
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
 Para instalar as dependências, execute:
 
 ```bash
