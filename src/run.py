@@ -5,7 +5,7 @@ import os
 
 app = FastAPI()
 
-model = whisper.load_model("turbo")  # tiny, base, small, medium ou large
+model = whisper.load_model("turbo")  # tiny, base, small, medium, large or turbo
 
 
 @app.post("/stt")
@@ -15,11 +15,13 @@ async def transcribe(audio: UploadFile = File(...)):
     with open(temp_file, "wb") as f:
         f.write(await audio.read())
 
-    result = model.transcribe(temp_file, language="pt")
+    result = model.transcribe(
+        temp_file, language="en", word_timestamps=True, task="transcribe"
+    )
 
     os.remove(temp_file)
 
-    return {"text": result["text"]}
+    return result
 
 
 if __name__ == "__main__":
